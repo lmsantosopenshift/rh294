@@ -1,0 +1,39 @@
+---
+- name: Copy file motd to managed hosts
+  hosts: servers
+  remote_user: devops
+  become: true
+  tasks:
+    - name: Copy motd
+      ansible.builtin.template:
+        src: templates/motd.j2
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: /etc/motd exists
+      ansible.builtin.stat:
+        path: /etc/motd
+      register: result
+
+    - name: Dump stat result
+      ansible.builtin.debug:
+        var: result
+
+    - name: Copy file issue to /etc
+      ansible.builtin.copy:
+        src: files/issue
+        dest: /etc/issue
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Symbolic link /etc/issue to /etc/issue.net
+      ansible.builtin.file:
+        src: /etc/issue
+        dest: /etc/issue.net
+        state: link
+        owner: root
+        group: root
+        force: yes
