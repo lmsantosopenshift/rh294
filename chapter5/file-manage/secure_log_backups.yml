@@ -1,0 +1,11 @@
+---
+- name: Fetch log files from host servers
+  hosts: all
+  remote_user: root
+  tasks:
+    - name: Fetch /var/log/secure from managed hosts
+      ansible.builtin.fetch:
+        src: /var/log/secure
+        dest: secure-backups
+        flat: no
+

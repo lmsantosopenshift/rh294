@@ -1,0 +1,9 @@
+Jul  2 07:58:15 servera polkitd[720]: Loading rules from directory /etc/polkit-1/rules.d
+Jul  2 07:58:15 servera polkitd[720]: Loading rules from directory /usr/share/polkit-1/rules.d
+Jul  2 07:58:15 servera polkitd[720]: Finished loading, compiling and executing 4 rules
+Jul  2 07:58:15 servera polkitd[720]: Acquired the name org.freedesktop.PolicyKit1 on the system bus
+Jul  2 07:58:15 servera sshd[769]: Server listening on 0.0.0.0 port 22.
+Jul  2 07:58:15 servera sshd[769]: Server listening on :: port 22.
+Jul  2 08:17:37 servera sshd[1059]: Accepted publickey for root from 172.25.250.9 port 34818 ssh2: RSA SHA256:M8ikhcEDm2tQ95Z0o7ZvufqEixCFCt+wowZLNzNlBT0
+Jul  2 08:17:37 servera systemd[1063]: pam_unix(systemd-user:session): session opened for user root(uid=0) by (uid=0)
+Jul  2 08:17:37 servera sshd[1059]: pam_unix(sshd:session): session opened for user root(uid=0) by (uid=0)
