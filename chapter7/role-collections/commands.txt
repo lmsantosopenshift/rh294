@@ -1,0 +1,100 @@
+#1689517919
+git status
+#1689517926
+git commit -m "add role-galaxy"
+#1689517928
+git push origin main
+#1689517939
+ls
+#1689517940
+cd
+#1689517945
+lab start role-collections
+#1689517974
+ls
+#1689517976
+cd role-c
+#1689517978
+cd role-collections/
+#1689517981
+ls
+#1689518039
+ansible-galaxy collection install gls-utils-0.0.1.tar.gz -p collections
+#1689518041
+ls
+#1689518043
+ls collections/
+#1689518049
+ls collections/ansible_collections/gls/utils/
+#1689518050
+ls
+#1689518069
+an
+#1689518073
+ansible-navigator collections
+#1689517979
+tmux
+#1689518115
+ansible-navigator collections
+#1689518152
+cat ~/.bashrc 
+#1689518174
+ls
+#1689518176
+cd role-collections/
+#1689518184
+ansible-navigator collections
+#1689518190
+la
+#1689518196
+ansible-navigator collections | grep gls
+#1689518249
+ansible-navigator
+#1689518256
+ansible-navigator -m i
+#1689518260
+ansible-navigator -m interactive
+#1689518267
+ansible-navigator collections -m interactive
+#1689518378
+ls
+#1689518525
+ansc bck.yml 
+#1689518552
+anr bck.yml
+#1689518427
+vim bck.yml 
+#1689518424
+tmux
+#1689518626
+ls
+#1689518628
+lsl
+#1689518629
+ls
+#1689518641
+vim requirements.yml 
+#1689518665
+ansible-galaxy collections install -r requirements.yml -p collections
+#1689518673
+ansible-galaxy collection install -r requirements.yml -p collections
+#1689518694
+ansible-navigator collections -m interactive
+#1689518750
+ls
+#1689518753
+anr new_system.yml 
+#1689518811
+anr new_system.yml --check
+#1689518828
+lab finish role-collections
+#1689518835
+cd
+#1689518838
+cd role-collections/
+#1689518838
+ls
+#1689518849
+less -100 ~/.bash_history 
+#1689518878
+tail -100 ~/.bash_history 

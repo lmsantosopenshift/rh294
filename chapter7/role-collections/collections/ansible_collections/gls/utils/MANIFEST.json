@@ -1,0 +1,30 @@
+{
+ "collection_info": {
+  "namespace": "gls",
+  "name": "utils",
+  "version": "0.0.1",
+  "authors": [
+   "Herve Quatremain <hquatrem@redhat.com>"
+  ],
+  "readme": "README.md",
+  "tags": [],
+  "description": "Ansible collection that provides common functions for GLS courses",
+  "license": [
+   "GPL-3.0-or-later"
+  ],
+  "license_file": null,
+  "dependencies": {},
+  "repository": "http://example.com/repository",
+  "documentation": "http://docs.example.com",
+  "homepage": "http://example.com",
+  "issues": "http://example.com/issue/tracker"
+ },
+ "file_manifest_file": {
+  "name": "FILES.json",
+  "ftype": "file",
+  "chksum_type": "sha256",
+  "chksum_sha256": "946f2a6d3493a22e98309f40d12c00a65e2870bf66dfdab5d6d1f8e0ac9e761f",
+  "format": 1
+ },
+ "format": 1
+}
