@@ -1,0 +1,10 @@
+- name: Add users
+  hosts: dev
+
+  tasks:
+    - name: add the users joe and sam
+      ansible.builtin.user:
+        name: "{{ item }}"
+      loop:
+        - sam
+        - joe

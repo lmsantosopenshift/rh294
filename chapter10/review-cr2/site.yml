@@ -1,0 +1,6 @@
+# Deploy web servers
+- import_playbook: dev_deploy.yml
+
+# Retrieve web content
+- import_playbook: get_web_content.yml
+

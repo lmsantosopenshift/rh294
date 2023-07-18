@@ -1,0 +1,4 @@
+- name: Deploy web service
+  hosts: webdev
+  roles:
+    - ansible-httpd

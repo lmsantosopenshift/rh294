@@ -1,0 +1,6 @@
+# vars file for ansible-httpd
+web_package: httpd
+web_service: httpd
+web_config_file: /etc/httpd/conf/httpd.conf
+web_root: /var/www/html/index.html
+web_fw_service: http
