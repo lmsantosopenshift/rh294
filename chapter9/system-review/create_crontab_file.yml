@@ -1,0 +1,15 @@
+- name: Create cron job
+  hosts: webservers
+  become: true
+
+  tasks:
+    - name: Crontab file exists
+      ansible.builtin.cron:
+        name: Add disk usage to a file
+        job: df >> /home/devops/disk_usage
+        minute: "*/2"
+        hour: 9-16
+        weekday: 1-5
+        user: devops
+        cron_file: disk_usage
+        state: present

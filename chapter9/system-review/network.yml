@@ -1,0 +1,5 @@
+- name: NIC Configurations
+  hosts: webservers
+
+  roles:
+    - redhat.rhel_system_roles.network
