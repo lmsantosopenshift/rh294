@@ -1,0 +1,14 @@
+- name: Configure storage
+  hosts: all
+
+  roles:
+    - name: redhat.rhel_system_roles.storage
+      storage_pools:
+        - name: vg0
+          disks:
+            - /dev/vdb
+          volumes:
+            - name: lv0
+              size: 800m
+              fs_type: xfs
+              state: present

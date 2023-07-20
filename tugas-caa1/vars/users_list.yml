@@ -1,0 +1,9 @@
+users:
+  - username: nakula
+    groups: pengembang
+  - username: sadewa
+    groups: pengembang
+  - username: arjuna
+    groups: pengujian
+  - username: yudistira
+    groups: manajer

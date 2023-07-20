@@ -1,0 +1,53 @@
+- name: Create users for each host
+  hosts: all
+  vars_files:
+    - vars/users_list.yml
+    - lock.yml
+  tasks:
+    - name: Create groups
+      ansible.builtin.group:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - pengembang
+        - pengujian
+        - manajer
+
+- name: Create pengembang users
+  hosts: pengembangan
+  vars_files:
+    - vars/users_list.yml
+    - lock.yml
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: "{{ item['username'] }}"
+        password: "{{ pw_pengembang }}"
+      with_items: "{{ users }}"
+      when: item['groups'] == "pengembang"
+
+- name: Create pengujian users
+  hosts: pengujian
+  vars_files:
+    - vars/users_list.yml
+    - lock.yml
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: "{{ item['username'] }}"
+        password: "{{ pw_pengujian }}"
+      with_items: "{{ users }}"
+      when: item['groups'] == "pengujian"
+
+- name: Create manajer users
+  hosts: proxy
+  vars_files:
+    - vars/users_list.yml
+    - lock.yml
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: "{{ item['username'] }}"
+        password: "{{ pw_manajer }}"
+      with_items: "{{ users }}"
+      when: item['groups'] == "manajer"

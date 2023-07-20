@@ -1,0 +1,18 @@
+- name: Set target default boot to multi-user.target
+  hosts: all
+  become: true
+  vars:
+    default_target: multi-user.target
+
+  tasks:
+    
+    - name: Get default target
+      ansible.builtin.command:
+        cmd: systemctl get-default
+      register: target
+      changed_when: false
+
+    - name: Set default target
+      ansible.builtin.command:
+        cmd: systemctl set-default {{ default_target }}
+      when: default_target not in target.stdout

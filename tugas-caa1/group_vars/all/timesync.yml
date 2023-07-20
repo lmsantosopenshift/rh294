@@ -1,0 +1,4 @@
+timesync_ntp_provider: chrony
+timesync_ntp_servers:
+  - hostname: 0.uk.pool.ntp.org
+    iburst: yes

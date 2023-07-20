@@ -1,0 +1,13 @@
+- name: Generate motd for all servers
+  hosts: all
+
+  tasks:
+       
+   - name: Generate motd
+     ansible.builtin.copy:
+      dest: /etc/motd 
+      content: Selamat Datang di {{ motd_message }} {{ ansible_facts['fqdn'] }} 
+      owner: root
+      group: root
+      mode: 0644
+     when: motd_message is defined
