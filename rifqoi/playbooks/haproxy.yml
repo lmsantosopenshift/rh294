@@ -1,0 +1,21 @@
+- name: Configure haproxy
+  hosts: proxy
+  become: true
+  tasks:
+    - name: Set backend servers variable
+      ansible.builtin.set_fact:
+        haproxy_servers: "{{ haproxy_servers | default([]) + [ {'name': 'app' + (idx+1)|string, 'address': item + ':80'} ]  }}"
+      with_items: "{{ groups['serversitus'] }}"
+      loop_control:
+        index_var: idx
+
+    - name: Debug
+      ansible.builtin.debug:
+        msg: "{{ haproxy_servers }}"
+
+
+    - name: Configure haproxy on proxy server
+      ansible.builtin.include_role:
+        name: haproxy-role
+      vars:
+        haproxy_backend_servers: "{{ haproxy_servers }}"

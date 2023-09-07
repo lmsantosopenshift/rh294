@@ -2,10 +2,10 @@
   hosts: all
   become: true
   roles:
-    - name: linux-system-roles.storage
+    - name: redhat.rhel_system_roles.storage
       storage_pools:
         - name: vg0
-          disk:
+          disks:
             - /dev/vdb
           volumes:
             - name: lv0

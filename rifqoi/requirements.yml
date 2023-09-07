@@ -7,4 +7,5 @@ collections:
 roles:
   - linux-system-roles.storage
   - linux-system-roles.timesync
-  - geerlingguy.haproxy
+  - src: geerlingguy.haproxy
+    name: haproxy-role

@@ -2,6 +2,14 @@
   hosts: all
   become: true
   tasks:
-    - name: Test
+    - name: inventory_hostname
       ansible.builtin.debug:
-        msg: "{{ ansible_facts }}"
+        msg: "{{ inventory_hostname }}"
+
+    - name: groups
+      ansible.builtin.debug:
+        msg: "{{ groups }}"
+
+    - name: group_names
+      ansible.builtin.debug:
+        msg: "{{ group_names }}"

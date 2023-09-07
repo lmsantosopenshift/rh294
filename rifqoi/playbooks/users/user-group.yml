@@ -1,0 +1,46 @@
+- name: Create groups and users
+  hosts: all
+  become: true
+  vars_files:
+    - lock.yml
+    - users_list.yml
+  vars:
+    groups_list:
+      - pengembang
+      - pengujian
+      - manajer
+
+  tasks:
+    - name: Create group
+      ansible.builtin.group:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ groups_list }}"
+
+    - name: debug
+      ansible.builtin.debug:
+        msg: "{{ inventory_hostname }}"
+
+    - name: Create pengembangan user
+      ansible.builtin.user:
+        name: "{{ item['name'] }}"
+        password: "{{ pw_pengembang }}"
+        group: "{{ item['group'] }}"
+      with_items: "{{ users }}"
+      when: inventory_hostname in groups["pengembangan"] and item['group'] == 'pengembang'
+
+    - name: Create pengujian user
+      ansible.builtin.user:
+        name: "{{ item['name'] }}"
+        password: "{{ pw_pengujian }}"
+        group: "{{ item['group'] }}"
+      with_items: "{{ users }}"
+      when: inventory_hostname in groups["pengujian"] and item['group'] == 'pengujian'
+
+    - name: Create manajer user
+      ansible.builtin.user:
+        name: "{{ item['name'] }}"
+        password: "{{ pw_manajer }}"
+        group: "{{ item['group'] }}"
+      with_items: "{{ users }}"
+      when: inventory_hostname in groups["proxy"] and item['group'] == 'manajer'
