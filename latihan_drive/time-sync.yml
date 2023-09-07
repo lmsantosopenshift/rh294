@@ -1,0 +1,10 @@
+- name: Timesync
+  hosts: all
+  become: true
+  vars:
+    - timesync_ntp_servers:
+      - hostname: 0.uk.pool.ntp.org.
+        iburst: true                # Flag enabling fast initial synchronization
+
+  roles:
+    - redhat.rhel_system_roles.timesync

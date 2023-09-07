@@ -1,0 +1,6 @@
+users:
+  - name: nakula
+    groups: managers
+  - name: sadewa
+    groups: developer
+

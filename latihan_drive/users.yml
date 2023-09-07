@@ -1,0 +1,42 @@
+- name: Create users and groups for dev server
+  hosts: dev
+  become: true
+  vars_files:
+    - lock.yml
+    - users_list.yml
+  tasks:
+    - name: Create devops group
+      ansible.builtin.group:
+        name: "devops"
+
+    - name: Create users for dev
+      ansible.builtin.user:
+        name: "{{ item['name'] }}"
+        password: "{{ pw_dev }} | password_hash('sha512')"
+        group: "devops"
+      with_items: "{{ users }}"
+      when: item['groups'] == 'developers'
+
+
+
+- name: Create users and groups for proxy server
+  hosts: proxy
+  become: true
+  vars_files:
+    - lock.yml
+    - users_list.yml
+  tasks:
+    - name: Create devops group
+      ansible.builtin.group:
+        name: "devops"
+
+    - name: Create users for dev
+      ansible.builtin.user:
+        name: "{{ item['name'] }}"
+        password: "{{ pw_dev }} | password_hash('sha512')"
+        group: "devops"
+      with_items: "{{ users }}"
+      when: item['groups'] == 'managers'
+
+
+

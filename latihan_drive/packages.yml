@@ -1,0 +1,36 @@
+- name: Install packages on prod and webservers
+  hosts: prod, webservers
+  become: true
+  vars:
+    - packages:
+      - httpd
+      - mod_ssl
+      - mariadb
+
+  tasks:
+    - name: Install packages
+      ansible.builtin.yum:
+        name: "{{ packages }}"
+        state: present
+
+- name: Install packages on dev
+  hosts: dev
+  become: true
+  vars:
+   - packages:
+     - httpd
+     - mod_ssl
+     - mariadb
+     - "@RPM Development Tools"
+
+  tasks:
+   - name: Install packages
+     ansible.builtin.yum:
+       name: "{{ packages }}"
+       state: present
+
+   - name: Upgrade all packages
+     ansible.builtin.yum:
+       name: "*"
+       state: latest
+

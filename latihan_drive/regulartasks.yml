@@ -1,0 +1,10 @@
+- name: Append date to /root/datefile every day at noon
+  hosts: all
+  tasks:
+    - name: Add cron job to append date to /root/datefile
+      ansible.builtin.cron:
+        name: datejob
+        hour: 12
+        job: "date > /root/datefile"
+
+

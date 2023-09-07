@@ -1,0 +1,15 @@
+- name: MOTD
+  hosts: all
+  become: true
+  tasks:
+    - name: Create /etc/motd file
+      ansible.builtin.copy:
+        content: >-
+          {% if 'dev' in group_names %}
+          Welcome to Dev Server {{ ansible_facts['fqdn'] }}
+          {% elif 'webservers' in group_names %}
+          Welcome to Apache Server {{ ansible_facts['fqdn'] }}
+          {% elif 'test' in group_names %}
+          Welcome to Test Server {{ ansible_facts['fqdn'] }}
+          {% endif %}
+        dest: /etc/motd

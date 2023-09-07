@@ -1,0 +1,93 @@
+- name: Testing purpose
+  hosts: prod
+  become: true
+  tasks:
+    - name: Get device /dev/vdb available storage
+      community.general.parted:
+        device: /dev/vdb
+        unit: MiB
+      register: dev_vdb
+
+    - name: Create 1.5GiB logvol
+      block:
+        - name: Check if not enough space 
+          ansible.builtin.fail:
+            msg: "Disk only available for {{ dev_vdb.disk.size }}MiB"
+          when: dev_vdb.disk.size < 1500
+
+        - name: Create 1500MiB storage logical vol group
+          ansible.builtin.include_role:
+            name: linux-system-roles.storage
+          vars:
+            storage_pools:
+              - name: vg0
+                disks:
+                  - /dev/vdb
+                volumes:
+                  - name: lv0
+                    fs_type: xfs
+                    state: present
+                    size: 1500m
+
+      rescue:
+        - name: Create 800MiB storage logical vol group
+          ansible.builtin.debug:
+            msg: 800MiB is installed
+          when: dev_vdb.disk.size > 800 
+
+        - name: Create 800MiB storage logical vol group
+          ansible.builtin.include_role:
+            name: linux-system-roles.storage
+          vars:
+            storage_pools:
+              - name: vg0
+                disks:
+                  - /dev/vdb
+                volumes:
+                  - name: lv0
+                    fs_type: xfs
+                    state: present
+                    size: 800m
+
+      always:
+        - name: Gather facts ulang
+          ansible.builtin.setup:
+
+        - name: Check volume group vg0 is exists
+          ansible.builtin.debug:
+            msg: "Volume group vg0 not exists"
+          when: "'vg0' not in ansible_lvm['vgs']"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    - name: Debug message
+      ansible.builtin.debug:
+        msg: "{{ dev_vdb }}"
+
+    - name: Debug message
+      ansible.builtin.debug:
+        msg: >-
+          {% if dev_vdb.disk.size > 1500 %}
+          /dev/vdb is more than 1500
+          {% elif dev_vdb.disk.size > 800 %}
+          /dev/vdb is more than 800
+          {% endif %}

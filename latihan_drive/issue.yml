@@ -1,0 +1,15 @@
+- name: Create /etc/issue file in remote host
+  hosts: all
+  become: true
+  tasks:
+    - name: Create /etc/issue
+      ansible.builtin.copy:
+        dest: /etc/issue
+        content: >-
+          {% if 'dev' in group_names %}
+          Development
+          {% elif 'test' in group_names %}
+          Testing
+          {% elif 'prod' in group_names %}
+          Production
+          {% endif %}

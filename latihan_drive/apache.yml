@@ -1,0 +1,8 @@
+- name: Run apache service
+  hosts: webservers
+  become: true
+  tasks:
+    - name: Run sample-apache roles
+      ansible.builtin.include_role:
+        name: sample-apache
+
