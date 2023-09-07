@@ -1,0 +1,18 @@
+- name: Create issue for remote servers 
+  hosts: all
+  become: true
+  tasks:
+    - name: Create /etc/issue file
+      ansible.builtin.copy:
+        content: >-
+          {% if inventory_hostname in groups['pengembangan'] %}
+          PENGEMBANGAN
+          {% elif inventory_hostname in groups['pengujian'] %}
+          PENGUJIAN
+          {% elif inventory_hostname in groups['proxy'] %}
+          PROXY
+          {% endif %}
+        dest: /etc/issue
+        owner: root
+        group: root
+        mode: 0644

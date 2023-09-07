@@ -1,0 +1,14 @@
+- name: Configure logical volume for remote servers
+  hosts: all
+  become: true
+  roles:
+    - name: linux-system-roles.storage
+      storage_pools:
+        - name: vg0
+          disk:
+            - /dev/vdb
+          volumes:
+            - name: lv0
+              size: 800MiB
+              fs_type: xfs
+              state: present

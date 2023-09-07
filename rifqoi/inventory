@@ -1,0 +1,15 @@
+[pengembangan]
+servera.lab.example.com
+
+[pengujian]
+serverb.lab.example.com
+
+[proxy]
+serverc.lab.example.com
+
+[produksi]
+serverb.lab.example.com
+serverd.lab.example.com
+
+[serversitus:children]
+produksi

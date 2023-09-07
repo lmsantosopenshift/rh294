@@ -1,0 +1,11 @@
+- name: Add wheel to sudoers NOPASSWD
+  hosts: all
+  become: true
+  tasks:
+    - name: Add line to /etc/sudoers
+      ansible.builtin.lineinfile:
+        line: "%wheel ALL=(ALL) NOPASSWD: ALL"
+        path: /etc/sudoers
+        owner: root
+        group: root
+

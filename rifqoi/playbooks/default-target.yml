@@ -1,0 +1,20 @@
+- name: Change default target to multi-user.target
+  hosts: all
+  vars:
+    default_target: multi-user.target
+  tasks:
+    - name: Get current target
+      ansible.builtin.command:
+        cmd: systemctl get-default
+      changed_when: false
+      register: current_target
+
+    - name: Debug current target
+      ansible.builtin.debug:
+        msg: "{{ current_target }}"
+
+    - name: Change target to multi-user.target
+      ansible.builtin.command:
+        cmd: systemctl set-default {{ default_target }}
+      changed_when: false
+      when: default_target not in current_target.stdout

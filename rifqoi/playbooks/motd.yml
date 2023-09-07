@@ -1,0 +1,18 @@
+- name: Change motd of remote servers
+  hosts: all
+  become: true
+  tasks:
+    - name: Create motd to /etc/motd
+      ansible.builtin.copy:
+        content: >-
+          {% if 'pengembangan' in group_names %}
+          Selamat datang di Server Pengembangan {{ ansible_facts['fqdn'] }}
+          {% elif 'pengujian' in group_names %}
+          Selamat datang di Server Pengujian {{ ansible_facts['fqdn'] }}
+          {% elif 'serversitus' in group_names %}
+          Selamat datang di Server Situs {{ ansible_facts['fqdn'] }}
+          {% endif %}
+        dest: /etc/motd
+        owner: root
+        group: root
+        mode: 0744

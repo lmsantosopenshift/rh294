@@ -1,0 +1,10 @@
+collections:
+  - ansible.posix
+  - community.general
+  - name: collections/redhat-rhel_system_roles-1.19.3.tar.gz
+    type: file
+
+roles:
+  - linux-system-roles.storage
+  - linux-system-roles.timesync
+  - geerlingguy.haproxy
