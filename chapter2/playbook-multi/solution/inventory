@@ -1,0 +1,8 @@
+[workstation]
+control.domain2.exam.com
+
+[servera]
+servera.domain2.exam.com
+
+[web:children]
+servera

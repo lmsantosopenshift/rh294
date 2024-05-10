@@ -1,7 +1,9 @@
 ---
-- name: Enable intranet services
-  hosts: servera.lab.example.com
+- name: Enable Intranet Services
+  hosts: servera.domain2.exam.com
   become: true
+  remote_user: student
+
   tasks:
     - name: Latest version of httpd and firewalld installed
       ansible.builtin.dnf:
@@ -10,10 +12,10 @@
           - firewalld
         state: latest
 
-    - name: Test html page is installed
+    - name: Confirm html page installed
       ansible.builtin.copy:
-        content: "Welcome to the example.com intranet!\n"
-        dest: /var/www/html/index.html
+        content: "Ejemplo de Intranet!\n"
+        dest: "/var/www/html/index.html"
 
     - name: Firewall enabled and running
       ansible.builtin.service:
@@ -34,12 +36,15 @@
         enabled: true
         state: started
 
-- name: Test intranet web server
+
+- name: Test intranet WebServer
   hosts: localhost
   become: false
+
   tasks:
     - name: Connect to intranet web server
       ansible.builtin.uri:
-        url: http://servera.lab.example.com
+        url: http://servera.domain2.exam.com
         return_content: yes
         status_code: 200
+      
