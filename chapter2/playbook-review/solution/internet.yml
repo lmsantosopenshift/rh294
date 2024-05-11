@@ -1,0 +1,52 @@
+- name: Enable internet services
+  hosts: serverb.domain2.exam.com
+  become: true
+  remote_user: student
+
+  tasks:
+    - name: Instalar paquetes necesarios
+      dnf:
+        name:
+          - firewalld
+          - httpd
+          - mariadb-server
+          - php
+          - php-mysqlnd
+        state: latest
+    
+    - name: Configurar servicio firewalld
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+
+    - name: Habilitar servicio httpd
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Habilitar servicio mariadb
+      ansible.builtin.service:
+        name: mariadb
+        state: started
+        enabled: true
+
+    - name: Copy required files
+      ansible.builtin.copy:
+        src: ./files/index.php
+        dest: /var/www/html/
+        mode: '0644'
+
+- name: Prueba del SiteWeb
+  hosts: localhost
+  become: false
+
+  tasks:
+    - name: La prueba
+      uri:
+        url: 'http://serverb.domain2.exam.com/index.php'
+        status_code: 200
+        return_content: true
+
